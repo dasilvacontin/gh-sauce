@@ -13,9 +13,50 @@ $ npm install --save gh-sauce
 
 ## Usage
 
-```javascript
-var ghSauce = require('gh-sauce');
-ghSauce(); // "awesome"
+```
+Usage: gh-sauce [options] <file ...>
+
+  Options:
+
+    -h, --help     output usage information
+    -V, --version  output the version number
+```
+
+
+## Example
+
+Before:
+
+```
+
+# CHANGELOG
+
+## 2.1.1 / 11 June 2015
+
+- Bugfix for using values from view's context prototype #442 by @phillipj.
+- Only display result of master branch on travis badge by @nikolas.
+- Upgrade assertion library for proper string diffs #459 by @dasilvacontin.
+
+```
+
+After:
+```
+
+# CHANGELOG
+
+## 2.1.1 / 11 June 2015
+
+- Bugfix for using values from view's context prototype [#442] by [@phillipj].
+- Only display result of master branch on travis badge by [@nikolas].
+- Upgrade assertion library for proper string diffs [#459] by [@dasilvacontin].
+
+[#442]: https://github.com/mochajs/mocha/issues/442
+[#459]: https://github.com/mochajs/mocha/issues/459
+
+[@dasilvacontin]: https://github.com/dasilvacontin
+[@nikolas]: https://github.com/nikolas
+[@phillipj]: https://github.com/phillipj
+
 ```
 
 ## API
