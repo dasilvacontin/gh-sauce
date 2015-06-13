@@ -1,12 +1,16 @@
 'use strict'
 
-/* globals describe, it */
+/* globals describe, beforeEach, it */
 
 var sauce = require('../')
 require('chai').should()
 
 describe('gh-sauce', function () {
   describe('#dress(text)', function () {
+    beforeEach(function () {
+      sauce.config.repo = 'https://github.com/mochajs/mocha'
+    })
+
     it('should throw a TypeError if text is not a string', function () {
       (function () {
         sauce.dress(125)
@@ -46,6 +50,17 @@ describe('gh-sauce', function () {
         'fixes [#26]',
         '',
         '[#26]: https://github.com/mochajs/mocha/issues/26',
+        '\n'
+      ].join('\n'))
+    })
+
+    it('should use config for issue urls', function () {
+      sauce.config.repo = 'https://github.com/dasilvacontin/gh-sauce'
+      sauce.dress('fixes #26')
+      .should.equal([
+        'fixes [#26]',
+        '',
+        '[#26]: https://github.com/dasilvacontin/gh-sauce/issues/26',
         '\n'
       ].join('\n'))
     })
