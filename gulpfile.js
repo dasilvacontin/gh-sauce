@@ -20,8 +20,10 @@ if (process.env.CI) {
 
 gulp.task('lint', function () {
   return gulp.src(paths.lint)
-    .pipe(plugins.jshint('.jshintrc'))
-    .pipe(plugins.jshint.reporter('jshint-stylish'));
+    .pipe(plugins.standard())
+    .pipe(plugins.standard.reporter('default', {
+      breakOnError: true
+    }))
 });
 
 gulp.task('istanbul', function (cb) {
