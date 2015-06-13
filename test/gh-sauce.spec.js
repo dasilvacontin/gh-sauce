@@ -91,6 +91,29 @@ describe('gh-sauce', function () {
       sauce.dress('fixes #26\t').should.equal(dressed)
       sauce.dress('fixes #26\t\n \n\t').should.equal(dressed)
     })
+
+    it('should merge with an existing summary', function () {
+      sauce.dress([
+        'fixes #27 by @dasilvacontin',
+        'fix thing [#26] by [@phillipj]',
+        '',
+        '[#26]: https://github.com/mochajs/mocha/issues/26',
+        '',
+        '[@dasilvacontin]: https://github.com/dasilvacontin',
+        '\n'
+      ].join('\n'))
+      .should.equal([
+        'fixes [#27] by [@dasilvacontin]',
+        'fix thing [#26] by [@phillipj]',
+        '',
+        '[#26]: https://github.com/mochajs/mocha/issues/26',
+        '[#27]: https://github.com/mochajs/mocha/issues/27',
+        '',
+        '[@dasilvacontin]: https://github.com/dasilvacontin',
+        '[@phillipj]: https://github.com/phillipj',
+        '\n'
+      ].join('\n'))
+    })
   })
   describe('#dressFile(path)', function () {
 
