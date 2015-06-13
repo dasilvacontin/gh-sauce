@@ -7,7 +7,7 @@ Enhance your markdown gh-repo files.
 ## Install
 
 ```bash
-$ npm install --save gh-sauce
+$ npm install -g gh-sauce
 ```
 
 
