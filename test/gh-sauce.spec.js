@@ -21,6 +21,9 @@ describe('gh-sauce', function () {
     it('shouldn\'t change the text if there is nothing to improve', function () {
       var text = 'nothing to enhance'
       sauce.dress(text).should.equal(text)
+
+      text += '\n'
+      sauce.dress(text).should.equal(text)
     })
 
     it('should enhance usernames', function () {
