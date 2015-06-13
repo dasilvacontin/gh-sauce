@@ -1,12 +1,14 @@
-'use strict';
+'use strict'
 
-var ghSauce = require('../');
-var assert = require('should');
+/* globals describe, it */
+
+var ghSauce = require('../')
+require('should')
 
 describe('ghSauce', function () {
 
   it('should be awesome', function () {
-    ghSauce().should.equal('awesome');
-  });
+    ghSauce().should.equal('awesome')
+  })
 
-});
+})

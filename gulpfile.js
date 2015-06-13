@@ -1,21 +1,21 @@
-'use strict';
+'use strict'
 
-var gulp   = require('gulp');
-var plugins = require('gulp-load-plugins')();
+var gulp = require('gulp')
+var plugins = require('gulp-load-plugins')()
 
 var paths = {
   lint: ['./gulpfile.js', './lib/**/*.js', './test/**/*.js'],
   watch: ['./gulpfile.js', './lib/**', './test/**/*.js', '!test/{temp,temp/**}'],
   tests: ['./test/**/*.js', '!test/{temp,temp/**}'],
   source: ['./lib/*.js']
-};
+}
 
-var plumberConf = {};
+var plumberConf = {}
 
 if (process.env.CI) {
-  plumberConf.errorHandler = function(err) {
-    throw err;
-  };
+  plumberConf.errorHandler = function (err) {
+    throw err
+  }
 }
 
 gulp.task('lint', function () {
@@ -24,7 +24,7 @@ gulp.task('lint', function () {
     .pipe(plugins.standard.reporter('default', {
       breakOnError: true
     }))
-});
+})
 
 gulp.task('istanbul', function (cb) {
   gulp.src(paths.source)
@@ -35,27 +35,27 @@ gulp.task('istanbul', function (cb) {
         .pipe(plugins.plumber(plumberConf))
         .pipe(plugins.mocha())
         .pipe(plugins.istanbul.writeReports()) // Creating the reports after tests runned
-        .on('finish', function() {
-          process.chdir(__dirname);
-          cb();
-        });
-    });
-});
+        .on('finish', function () {
+          process.chdir(__dirname)
+          cb()
+        })
+    })
+})
 
 gulp.task('bump', ['test'], function () {
-  var bumpType = plugins.util.env.type || 'patch'; // major.minor.patch
+  var bumpType = plugins.util.env.type || 'patch' // major.minor.patch
 
   return gulp.src(['./package.json'])
     .pipe(plugins.bump({ type: bumpType }))
-    .pipe(gulp.dest('./'));
-});
+    .pipe(gulp.dest('./'))
+})
 
 gulp.task('watch', ['test'], function () {
-  gulp.watch(paths.watch, ['test']);
-});
+  gulp.watch(paths.watch, ['test'])
+})
 
-gulp.task('test', ['lint', 'istanbul']);
+gulp.task('test', ['lint', 'istanbul'])
 
-gulp.task('release', ['bump']);
+gulp.task('release', ['bump'])
 
-gulp.task('default', ['test']);
+gulp.task('default', ['test'])
