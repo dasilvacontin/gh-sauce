@@ -40,5 +40,5 @@ Copyright (c) 2015 David da Silva Contín. Licensed under the MIT license.
 [travis-image]: https://travis-ci.org/dasilvacontin/gh-sauce.svg?branch=master
 [daviddm-url]: https://david-dm.org/dasilvacontin/gh-sauce.svg?theme=shields.io
 [daviddm-image]: https://david-dm.org/dasilvacontin/gh-sauce
-[coveralls-url]: https://coveralls.io/r/dasilvacontin/gh-sauce
-[coveralls-image]: https://coveralls.io/repos/dasilvacontin/gh-sauce/badge.png
+[coveralls-url]: https://coveralls.io/r/dasilvacontin/gh-sauce?branch=master
+[coveralls-image]: https://coveralls.io/repos/dasilvacontin/gh-sauce/badge.svg?branch=master
