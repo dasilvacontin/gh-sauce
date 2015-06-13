@@ -26,7 +26,7 @@ gulp.task('lint', function () {
     }))
 })
 
-gulp.task('istanbul', function (cb) {
+gulp.task('istanbul', ['lint'], function (cb) {
   gulp.src(paths.source)
     .pipe(plugins.istanbul()) // Covering files
     .pipe(plugins.istanbul.hookRequire()) // Force `require` to return covered files
