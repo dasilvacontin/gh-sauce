@@ -72,6 +72,6 @@ describe('gh-sauce', function () {
     })
   })
   describe('#dressFile(path)', function () {
-    
+
   })
 })
