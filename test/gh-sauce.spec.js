@@ -29,7 +29,7 @@ describe('gh-sauce', function () {
         'fix bail not running after hooks by [@dasilvacontin]',
         '',
         '[@dasilvacontin]: https://github.com/dasilvacontin',
-        '\n'
+        ''
       ].join('\n'))
     })
 
@@ -40,7 +40,7 @@ describe('gh-sauce', function () {
         '',
         '[@dasilvacontin]: https://github.com/dasilvacontin',
         '[@phillipj]: https://github.com/phillipj',
-        '\n'
+        ''
       ].join('\n'))
     })
 
@@ -50,7 +50,7 @@ describe('gh-sauce', function () {
         'fixes [#26]',
         '',
         '[#26]: https://github.com/mochajs/mocha/issues/26',
-        '\n'
+        ''
       ].join('\n'))
     })
 
@@ -61,7 +61,7 @@ describe('gh-sauce', function () {
         'fixes [#26]',
         '',
         '[#26]: https://github.com/dasilvacontin/gh-sauce/issues/26',
-        '\n'
+        ''
       ].join('\n'))
     })
 
@@ -73,7 +73,7 @@ describe('gh-sauce', function () {
         '[#26]: https://github.com/mochajs/mocha/issues/26',
         '[#27]: https://github.com/mochajs/mocha/issues/27',
         '[#29]: https://github.com/mochajs/mocha/issues/29',
-        '\n'
+        ''
       ].join('\n'))
     })
 
@@ -87,7 +87,7 @@ describe('gh-sauce', function () {
         '',
         '[@dasilvacontin]: https://github.com/dasilvacontin',
         '[@phillipj]: https://github.com/phillipj',
-        '\n'
+        ''
       ].join('\n'))
     })
 
@@ -97,7 +97,7 @@ describe('gh-sauce', function () {
         'fixes [#26]',
         '',
         '[#26]: https://github.com/mochajs/mocha/issues/26',
-        '\n'
+        ''
       ].join('\n')
 
       sauce.dress('fixes #26\n').should.equal(dressed)
@@ -115,7 +115,7 @@ describe('gh-sauce', function () {
         '[#26]: https://github.com/mochajs/mocha/issues/26',
         '',
         '[@phillipj]: https://github.com/phillipj',
-        '\n'
+        ''
       ].join('\n'))
       .should.equal([
         'fixes [#27] by [@dasilvacontin]',
@@ -126,7 +126,7 @@ describe('gh-sauce', function () {
         '',
         '[@dasilvacontin]: https://github.com/dasilvacontin',
         '[@phillipj]: https://github.com/phillipj',
-        '\n'
+        ''
       ].join('\n'))
     })
   })
