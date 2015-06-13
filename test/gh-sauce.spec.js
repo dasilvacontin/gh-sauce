@@ -60,20 +60,36 @@ describe('gh-sauce', function () {
         '[#29]: https://github.com/mochajs/mocha/issues/29',
         '\n'
       ].join('\n'))
+    })
 
-      it('should list issues first then usernames', function () {
-        sauce.dress('#27 and #26 were fixed by @phillipj and @dasilvacontin')
-        .should.equal([
-          '[#27] and [#26] were fixed by [@phillipj] and [@dasilvacontin]',
-          '',
-          '[#26]: https://github.com/mochajs/mocha/issues/26',
-          '[#27]: https://github.com/mochajs/mocha/issues/27',
-          '',
-          '[@dasilvacontin]: https://github.com/dasilvacontin',
-          '[@phillipj]: https://github.com/phillipj',
-          '\n'
-        ].join('\n'))
-      })
+    it('should list issues first then usernames', function () {
+      sauce.dress('#27 and #26 were fixed by @phillipj and @dasilvacontin')
+      .should.equal([
+        '[#27] and [#26] were fixed by [@phillipj] and [@dasilvacontin]',
+        '',
+        '[#26]: https://github.com/mochajs/mocha/issues/26',
+        '[#27]: https://github.com/mochajs/mocha/issues/27',
+        '',
+        '[@dasilvacontin]: https://github.com/dasilvacontin',
+        '[@phillipj]: https://github.com/phillipj',
+        '\n'
+      ].join('\n'))
+    })
+
+    it('should only have two newlines between end of text and link summary',
+    function () {
+      var dressed = [
+        'fixes [#26]',
+        '',
+        '[#26]: https://github.com/mochajs/mocha/issues/26',
+        '\n'
+      ].join('\n')
+
+      sauce.dress('fixes #26\n').should.equal(dressed)
+      sauce.dress('fixes #26\n\n').should.equal(dressed)
+      sauce.dress('fixes #26\n\n\n').should.equal(dressed)
+      sauce.dress('fixes #26\t').should.equal(dressed)
+      sauce.dress('fixes #26\t\n \n\t').should.equal(dressed)
     })
   })
   describe('#dressFile(path)', function () {
