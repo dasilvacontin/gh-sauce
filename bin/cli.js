@@ -13,7 +13,7 @@ program
 
 var files = program.args
 if (files.length === 0) {
-  files = ['README.md', 'CHANGELOG.md']
+  files = ['CHANGELOG.md']
 }
 
 console.log('# Dressing ' + files.join(', ') + ' with some gh-sauce...\n')
