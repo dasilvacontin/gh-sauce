@@ -51,9 +51,9 @@ describe('gh-sauce', function () {
     })
 
     it('should list issues in ascending order', function () {
-      sauce.dress('fixes #26, #27 and #29')
+      sauce.dress('fixes #26 and #27. fix lookup (#29)')
       .should.equal([
-        'fixes [#26], [#27] and [#29]',
+        'fixes [#26] and [#27]. fix lookup ([#29])',
         '',
         '[#26]: https://github.com/mochajs/mocha/issues/26',
         '[#27]: https://github.com/mochajs/mocha/issues/27',
