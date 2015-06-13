@@ -99,7 +99,7 @@ describe('gh-sauce', function () {
         '',
         '[#26]: https://github.com/mochajs/mocha/issues/26',
         '',
-        '[@dasilvacontin]: https://github.com/dasilvacontin',
+        '[@phillipj]: https://github.com/phillipj',
         '\n'
       ].join('\n'))
       .should.equal([
