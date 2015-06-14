@@ -136,6 +136,32 @@ describe('gh-sauce', function () {
           ''
         ].join('\n'))
       })
+
+      it('should use `config.safe` for conserving existing urls', function () {
+        var config = {
+          safe: true
+        }
+
+        sauce.dress([
+          'fixes #27 by @phillipj',
+          'fix thing [#26] by [@phillipj]',
+          '',
+          '[#26]: https://github.com/mochajs/mocha/issues/26',
+          '',
+          '[@phillipj]: https://twitter.com/phillipjohnsen',
+          ''
+        ].join('\n'), config)
+        .should.equal([
+          'fixes [#27] by [@phillipj]',
+          'fix thing [#26] by [@phillipj]',
+          '',
+          '[#26]: https://github.com/mochajs/mocha/issues/26',
+          '[#27]: https://github.com/mochajs/mocha/issues/27',
+          '',
+          '[@phillipj]: https://twitter.com/phillipjohnsen',
+          ''
+        ].join('\n'))
+      })
     })
   })
   describe('#dressFile(path)', function () {

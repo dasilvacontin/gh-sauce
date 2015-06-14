@@ -9,11 +9,17 @@ var sauce = require('../lib/gh-sauce.js')
 program
 .version(pkg.version)
 .usage('[options] <file ...>')
+.option('-s, --safe', 'Safe mode, doesn\'t overwrite existing urls')
 .parse(process.argv)
 
 var files = program.args
 if (files.length === 0) {
   files = ['CHANGELOG.md']
+}
+
+var config = {}
+if (program.safe) {
+  config.safe = program.safe
 }
 
 console.log('# Dressing ' + files.join(', ') + ' with some gh-sauce...\n')
@@ -36,7 +42,7 @@ files.forEach(function (file) {
       }
       return
     }
-    var dressed = sauce.dress(data.toString())
+    var dressed = sauce.dress(data.toString(), config)
     fs.writeFile(file, dressed, function (err) {
       if (err) {
         throw err
