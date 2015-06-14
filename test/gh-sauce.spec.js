@@ -137,6 +137,15 @@ describe('gh-sauce', function () {
         ].join('\n'))
       })
 
+      it('should throw a TypeError for invalid config for `repo`', function () {
+        (function () {
+          var config = {
+            repo: 56
+          }
+          sauce.dress('', config)
+        }).should.throw()
+      })
+
       it('should use `config.safe` for conserving existing urls', function () {
         var config = {
           safe: true
