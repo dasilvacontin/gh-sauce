@@ -37,4 +37,6 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Username/issue parsing with markdown link generation by [@dasilvacontin].
 - Basic CLI by [@dasilvacontin].
 
+The markdown links in this change log were generated using `gh-sauce`.
+
 [@dasilvacontin]: https://github.com/dasilvacontin
