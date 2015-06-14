@@ -2,8 +2,8 @@
 
 /* globals describe, beforeEach, it */
 
-var sauce = require('../')
 require('chai').should()
+var sauce = require('../')
 
 describe('gh-sauce', function () {
   describe('#dress(text, config)', function () {
@@ -170,6 +170,20 @@ describe('gh-sauce', function () {
           '[@phillipj]: https://twitter.com/phillipjohnsen',
           ''
         ].join('\n'))
+      })
+
+      it('should throw an Error if couldn\'t figure out `repo`', function () {
+        process.chdir('test')
+        delete require.cache[require.resolve('../')]
+        sauce = require('../')
+
+        ;(function missingPackage () {
+          sauce.dress('w0l0l0')
+        }).should.throw()
+
+        process.chdir('..')
+        delete require.cache[require.resolve('../')]
+        sauce = require('../')
       })
     })
   })
