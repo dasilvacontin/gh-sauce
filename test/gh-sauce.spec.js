@@ -6,7 +6,7 @@ var sauce = require('../')
 require('chai').should()
 
 describe('gh-sauce', function () {
-  describe('#dress(text)', function () {
+  describe('#dress(text, config)', function () {
     beforeEach(function () {
       sauce.config.repo = 'https://github.com/mochajs/mocha'
     })
@@ -53,17 +53,6 @@ describe('gh-sauce', function () {
         'fixes [#26]',
         '',
         '[#26]: https://github.com/mochajs/mocha/issues/26',
-        ''
-      ].join('\n'))
-    })
-
-    it('should use config for issue urls', function () {
-      sauce.config.repo = 'https://github.com/dasilvacontin/gh-sauce'
-      sauce.dress('fixes #26')
-      .should.equal([
-        'fixes [#26]',
-        '',
-        '[#26]: https://github.com/dasilvacontin/gh-sauce/issues/26',
         ''
       ].join('\n'))
     })
@@ -131,6 +120,22 @@ describe('gh-sauce', function () {
         '[@phillipj]: https://github.com/phillipj',
         ''
       ].join('\n'))
+    })
+
+    describe('config', function () {
+      it('should use `config.repo` for issue urls', function () {
+        var config = {
+          repo: 'https://github.com/dasilvacontin/gh-sauce'
+        }
+
+        sauce.dress('fixes #26', config)
+        .should.equal([
+          'fixes [#26]',
+          '',
+          '[#26]: https://github.com/dasilvacontin/gh-sauce/issues/26',
+          ''
+        ].join('\n'))
+      })
     })
   })
   describe('#dressFile(path)', function () {
