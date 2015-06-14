@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.3.0 (2015-06-15)
+
+### Added
+
+- Throws TypeError if invalid `repo` config by @dasilvacontin.
+- Throw Error if couldn't figure out `repo` by @dasilvacontin.
+
 ## 0.2.0 (2015-06-14)
 
 ### Added
