@@ -10,6 +10,7 @@ program
 .version(pkg.version)
 .usage('[options] <file ...>')
 .option('-s, --safe', 'Safe mode, doesn\'t overwrite existing urls')
+.option('-r, --repo <repo URL>', 'Provide default repo URL for issues')
 .parse(process.argv)
 
 var files = program.args
@@ -20,6 +21,9 @@ if (files.length === 0) {
 var config = {}
 if (program.safe) {
   config.safe = program.safe
+}
+if (program.repo) {
+  config.repo = program.repo
 }
 
 console.log('# Dressing ' + files.join(', ') + ' with some gh-sauce...\n')
