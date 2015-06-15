@@ -54,12 +54,14 @@ $ npm install -g gh-sauce
 ## Usage
 
 ```
-Usage: gh-sauce [options] <file ...>
+  Usage: gh-sauce [options] <file ...>
 
   Options:
 
-    -h, --help     output usage information
-    -V, --version  output the version number
+    -h, --help             output usage information
+    -V, --version          output the version number
+    -s, --safe             Safe mode, doesn't overwrite existing urls
+    -r, --repo <repo URL>  Provide default repo URL for issues
 ```
 
 ## API
