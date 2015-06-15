@@ -3,7 +3,7 @@
 
 Enhance your GitHub repo's markdown files.
 
-`gh-sauce` parses issues and usernames from markdown files and automatically converts them into links. Your markdown will remain clean and easy to read since the URLs will be listed at the end of the file.
+`gh-sauce` parses issues and usernames from markdown files and automatically converts them into links. Your markdown will remain clean and easy to read since the URLs will be listed (in alphanumeric order) at the end of the file.
 
 
 ## Example
