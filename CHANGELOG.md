@@ -7,8 +7,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 
-- Throws TypeError if invalid `repo` config by @dasilvacontin.
-- Throw Error if couldn't figure out `repo` by @dasilvacontin.
+- Throws TypeError if invalid `repo` config by [@dasilvacontin].
+- Throw Error if couldn't figure out `repo` by [@dasilvacontin].
 
 ## 0.2.0 (2015-06-14)
 
