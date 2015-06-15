@@ -1,7 +1,9 @@
 # gh-sauce 
 [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-url]][daviddm-image] [![Coverage Status][coveralls-image]][coveralls-url]
 
-Enhance your markdown gh-repo files.
+Enhance your GitHub repo's markdown files.
+
+`gh-sauce` parses issues and usernames from markdown files and automatically converts them into links. Your markdown will remain clean and easy to read since the URLs will be listed at the end of the file.
 
 
 ## Install
