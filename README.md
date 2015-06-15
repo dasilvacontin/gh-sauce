@@ -6,30 +6,11 @@ Enhance your GitHub repo's markdown files.
 `gh-sauce` parses issues and usernames from markdown files and automatically converts them into links. Your markdown will remain clean and easy to read since the URLs will be listed at the end of the file.
 
 
-## Install
-
-```bash
-$ npm install -g gh-sauce
-```
-
-
-## Usage
-
-```
-Usage: gh-sauce [options] <file ...>
-
-  Options:
-
-    -h, --help     output usage information
-    -V, --version  output the version number
-```
-
-
 ## Example
 
 Before:
 
-```
+```markdown
 
 # CHANGELOG
 
@@ -42,7 +23,8 @@ Before:
 ```
 
 After:
-```
+
+```markdown
 
 # CHANGELOG
 
@@ -59,6 +41,25 @@ After:
 [@nikolas]: https://github.com/nikolas
 [@phillipj]: https://github.com/phillipj
 
+```
+
+
+## Install
+
+```bash
+$ npm install -g gh-sauce
+```
+
+
+## Usage
+
+```
+Usage: gh-sauce [options] <file ...>
+
+  Options:
+
+    -h, --help     output usage information
+    -V, --version  output the version number
 ```
 
 ## API
