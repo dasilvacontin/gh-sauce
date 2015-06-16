@@ -3,7 +3,7 @@
 [![Build Status][travis-image]][travis-url]
 [![Dependency Status][daviddm-url]][daviddm-image]
 [![Coverage Status][coveralls-image]][coveralls-url]
-[![NPM downloads per month][downloads-image]](downloads-url)
+[![NPM downloads per month][downloads-image]][downloads-url]
 
 Enhance your GitHub repo's markdown files.
 
