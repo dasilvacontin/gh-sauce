@@ -1,5 +1,9 @@
 # gh-sauce 
-[![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-url]][daviddm-image] [![Coverage Status][coveralls-image]][coveralls-url]
+[![NPM version][npm-image]][npm-url]
+[![Build Status][travis-image]][travis-url]
+[![Dependency Status][daviddm-url]][daviddm-image]
+[![Coverage Status][coveralls-image]][coveralls-url]
+[![NPM downloads per month][downloads-image]](downloads-url)
 
 Enhance your GitHub repo's markdown files.
 
@@ -82,6 +86,8 @@ Copyright (c) 2015 David da Silva Contín. Licensed under the MIT license.
 
 [npm-url]: https://npmjs.org/package/gh-sauce
 [npm-image]: https://badge.fury.io/js/gh-sauce.svg
+[downloads-url]: https://www.npmjs.org/package/gh-sauce
+[downloads-image]: http://img.shields.io/npm/dm/gh-sauce.svg
 [travis-url]: https://travis-ci.org/dasilvacontin/gh-sauce
 [travis-image]: https://travis-ci.org/dasilvacontin/gh-sauce.svg?branch=master
 [daviddm-url]: https://david-dm.org/dasilvacontin/gh-sauce.svg?theme=shields.io
