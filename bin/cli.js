@@ -11,8 +11,9 @@ var sauce = require('../lib/gh-sauce.js')
 program
 .version(pkg.version)
 .usage('[options] <file ...>')
-.option('-s, --safe', 'Safe mode, doesn\'t overwrite existing urls')
-.option('-r, --repo <repo URL>', 'Provide default repo URL for issues')
+.option('-s, --safe', 'safe mode, doesn\'t overwrite existing urls')
+.option('-r, --repo <repo URL>', 'provide default repo URL for issues')
+.option('-p, --print', 'print out the dressed files')
 .parse(process.argv)
 
 var files = program.args
@@ -30,19 +31,22 @@ if (program.repo) {
   config.repo = program.repo
 }
 
-console.log('# Dressing ' + files.join(', ') + ' with some gh-sauce...\n')
+var print = program.print
+
+if (!print) console.log('# Dressing ' + files.join(', ') + ' with some gh-sauce...\n')
 
 function doneDressing (msg) {
-  console.log(msg)
+  if (!print) console.log(msg)
   --files.length
   if (files.length === 0) {
-    console.log('\nDone! 🍧')
+    if (!print) console.log('\nDone! 🍧')
   }
 }
 
 _.forEach(files, function (file) {
   fs.readFileAsync(file).then(function (data) {
     var dressed = sauce.dress(data.toString(), config)
+    if (print) console.log(dressed)
     return fs.writeFileAsync(file, dressed)
   }).then(function () {
     doneDressing('- [x] "' + file + '" was dressed with gh-sauce')
