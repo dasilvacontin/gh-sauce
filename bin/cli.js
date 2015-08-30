@@ -1,7 +1,9 @@
 #! /usr/bin/env node
 
-var fs = require('fs')
+var _ = require('lodash')
+var Promise = require('bluebird')
 var program = require('commander')
+var fs = Promise.promisifyAll(require('fs'))
 
 var pkg = require('../package.json')
 var sauce = require('../lib/gh-sauce.js')
@@ -36,22 +38,20 @@ function doneDressing (msg) {
   }
 }
 
-files.forEach(function (file) {
-  fs.readFile(file, function (err, data) {
-    if (err) {
-      if (err.code === 'ENOENT') {
-        doneDressing('- [ ] "' + file + '" doesn\'t exist')
-      } else {
-        doneDressing('- [ ] "' + file + '" error, code :' + err.code)
-      }
-      return
-    }
+_.forEach(files, function (file) {
+  fs.readFileAsync(file).then(function (data) {
     var dressed = sauce.dress(data.toString(), config)
-    fs.writeFile(file, dressed, function (err) {
-      if (err) {
-        throw err
-      }
-      doneDressing('- [x] "' + file + '" was dressed with gh-sauce')
-    })
+    return fs.writeFileAsync(file, dressed)
+  }).then(function () {
+    doneDressing('- [x] "' + file + '" was dressed with gh-sauce')
+  }).catch(function (err) {
+    switch (err.code) {
+      case 'ENOENT':
+        doneDressing('- [ ] "' + file + '" doesn\'t exist')
+        break
+      default:
+        doneDressing('- [ ] "' + file + '" error, code :' + err.code)
+        break
+    }
   })
 })
