@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "chai": "^3.0.0",
+    "child-process-promise": "^1.1.0",
     "coveralls": "^2.11.1",
     "gulp": "^3.8.8",
     "gulp-bump": "^0.1.11",
