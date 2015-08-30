@@ -47,7 +47,7 @@ _.forEach(files, function (file) {
   fs.readFileAsync(file).then(function (data) {
     var dressed = sauce.dress(data.toString(), config)
     if (print) console.log(dressed)
-    return fs.writeFileAsync(file, dressed)
+    else return fs.writeFileAsync(file, dressed)
   }).then(function () {
     doneDressing('- [x] "' + file + '" was dressed with gh-sauce')
   }).catch(function (err) {
