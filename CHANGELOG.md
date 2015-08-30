@@ -3,6 +3,8 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+The markdown links in this change log were generated using [`gh-sauce`](https://github.com/dasilvacontin/gh-sauce).
+
 ## 0.4.0 (2015-08-30)
 
 ### Added
@@ -50,8 +52,6 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Multiple unit tests for `sauce#dress` by [@dasilvacontin].
 - Username/issue parsing with markdown link generation by [@dasilvacontin].
 - Basic CLI by [@dasilvacontin].
-
-The markdown links in this change log were generated using `gh-sauce`.
 
 [#1]: https://github.com/dasilvacontin/gh-sauce/issues/1
 [#4]: https://github.com/dasilvacontin/gh-sauce/issues/4
