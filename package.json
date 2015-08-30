@@ -19,7 +19,7 @@
     "bluebird": "^2.9.34",
     "commander": "^2.8.1",
     "debug": "2.2.0",
-    "lodash": "3.9.3"
+    "lodash": "^3.9.3"
   },
   "devDependencies": {
     "chai": "^3.0.0",
