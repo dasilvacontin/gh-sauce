@@ -1,4 +1,4 @@
-# gh-sauce 
+# gh-sauce
 [![NPM version][npm-image]][npm-url]
 [![Build Status][travis-image]][travis-url]
 [![Dependency Status][daviddm-url]][daviddm-image]
@@ -7,15 +7,8 @@
 
 Enhance your GitHub repo's markdown files.
 
-`gh-sauce` parses issues and usernames from markdown files and automatically converts them into links. Your markdown will remain clean and easy to read since the URLs will be listed (in alphanumeric order) at the end of the file.
-
-
-## Example
-
-Before:
-
 ```markdown
-
+$ cat CHANGELOG.md
 # CHANGELOG
 
 ## 2.1.1 / 11 June 2015
@@ -23,13 +16,19 @@ Before:
 - Bugfix for using values from view's context prototype #442 by @phillipj.
 - Only display result of master branch on travis badge by @nikolas.
 - Upgrade assertion library for proper string diffs #459 by @dasilvacontin.
-
 ```
 
-After:
+```markdown
+$ gh-sauce CHANGELOG.md
+# Dressing CHANGELOG.md with some gh-sauce...
+
+- [x] "CHANGELOG.md" was dressed with gh-sauce
+
+Done! 🍧
+```
 
 ```markdown
-
+$ cat CHANGELOG.md
 # CHANGELOG
 
 ## 2.1.1 / 11 June 2015
@@ -44,9 +43,9 @@ After:
 [@dasilvacontin]: https://github.com/dasilvacontin
 [@nikolas]: https://github.com/nikolas
 [@phillipj]: https://github.com/phillipj
-
 ```
 
+`gh-sauce` parses issues and usernames from markdown files and automatically converts them into links. Your markdown will remain clean and easy to read since the URLs will be listed (in alphanumeric order) at the end of the file.
 
 ## Install
 
@@ -80,7 +79,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## License
 
-Copyright (c) 2015 David da Silva Contín. Licensed under the MIT license.
+MIT © [David da Silva](http://dasilvacont.in)
 
 
 
@@ -94,3 +93,11 @@ Copyright (c) 2015 David da Silva Contín. Licensed under the MIT license.
 [daviddm-image]: https://david-dm.org/dasilvacontin/gh-sauce
 [coveralls-url]: https://coveralls.io/r/dasilvacontin/gh-sauce?branch=master
 [coveralls-image]: https://coveralls.io/repos/dasilvacontin/gh-sauce/badge.svg?branch=master
+
+[#442]: https://github.com/dasilvacontin/gh-sauce/issues/442
+[#459]: https://github.com/dasilvacontin/gh-sauce/issues/459
+
+[@dasilvacontin]: https://github.com/dasilvacontin
+[@nikolas]: https://github.com/nikolas
+[@phillipj]: https://github.com/phillipj
+
