@@ -17,7 +17,9 @@ program
 
 var files = program.args
 if (files.length === 0) {
-  files = ['CHANGELOG.md']
+  files = _.filter(fs.readdirSync('.'), function (file) {
+    return _.endsWith(file, '.md')
+  })
 }
 
 var config = {}
