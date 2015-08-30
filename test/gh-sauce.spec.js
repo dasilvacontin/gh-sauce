@@ -2,7 +2,6 @@
 
 /* globals describe, beforeEach, it */
 
-require('chai').should()
 var sauce = require('../')
 
 describe('gh-sauce', function () {
