@@ -69,8 +69,23 @@ $ npm install -g gh-sauce
 
 ## API
 
-_(Coming soon)_
+```js
+var sauce = require('gh-sauce')
 
+var filename = 'CHANGELOG.md'
+
+var sauceConfig = {
+  // defaults to false
+  safe: true
+  // defaults to local package.json's homepage field
+  repo: 'https://github.com/dasilvacontin/gh-sauce'
+}
+
+fs.readFile(filename, function (err, data) {
+  var dressed = sauce.dress(data.toString(), sauceConfig)
+  fs.writeFile(filename, dressed)
+})
+```
 
 ## Contributing
 
