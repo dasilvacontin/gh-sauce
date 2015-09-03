@@ -28,11 +28,12 @@ describe('gh-sauce', function () {
     })
 
     it('should list usernames alphabetically', function () {
-      sauce.dress('fix undefined lookup by @phillipj and @dasilvacontin')
+      sauce.dress('fix undefined lookup by @phillipj, @Formap and @dasilvacontin')
       .should.equal([
-        'fix undefined lookup by [@phillipj] and [@dasilvacontin]',
+        'fix undefined lookup by [@phillipj], [@Formap] and [@dasilvacontin]',
         '',
         '[@dasilvacontin]: https://github.com/dasilvacontin',
+        '[@Formap]: https://github.com/Formap',
         '[@phillipj]: https://github.com/phillipj',
         ''
       ].join('\n'))
