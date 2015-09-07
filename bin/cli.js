@@ -4,6 +4,7 @@ var _ = require('lodash')
 var Promise = require('bluebird')
 var program = require('commander')
 var fs = Promise.promisifyAll(require('fs'))
+var rfs = require('fs-readdir-recursive')
 
 var pkg = require('../package.json')
 var sauce = require('../lib/gh-sauce.js')
@@ -12,15 +13,41 @@ program
 .version(pkg.version)
 .usage('[options] <file ...>')
 .option('-s, --safe', 'safe mode, doesn\'t overwrite existing urls')
-.option('-r, --repo <repo URL>', 'provide default repo URL for issues')
+.option('--repo <repo URL>', 'provide default repo URL for issues')
+.option('-r, --recursive', 'dresses files recursively')
 .option('-p, --print', 'print out the dressed files')
 .parse(process.argv)
 
+function mdFilter (file) {
+  return _.endsWith(file, '.md')
+}
+
+function getFilesRecursively (files, rootFile) {
+  if (fs.lstatSync(rootFile).isDirectory()) {
+    var nestedFiles = rfs(rootFile, function (file) {
+      return file !== 'node_modules'
+    })
+    nestedFiles = _.filter(nestedFiles, mdFilter)
+    nestedFiles = _.map(nestedFiles, function (file) {
+      return rootFile + '/' + file
+    })
+    return files.concat(nestedFiles)
+  } else {
+    return files.concat(rootFile)
+  }
+}
+
 var files = program.args
-if (files.length === 0) {
-  files = _.filter(fs.readdirSync('.'), function (file) {
-    return _.endsWith(file, '.md')
-  })
+if (program.recursive) {
+  if (files.length === 0) {
+    files = getFilesRecursively([], '.')
+  } else {
+    files = _.reduce(program.args, getFilesRecursively, [])
+  }
+} else {
+  if (files.length === 0) {
+    files = _.filter(fs.readdirSync('.'), mdFilter)
+  }
 }
 
 var config = {}
