@@ -5,6 +5,16 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 The markdown links in this change log were generated using [`gh-sauce`](https://github.com/dasilvacontin/gh-sauce).
 
+## 0.5.1 (2015-09-08)
+
+### Changed
+
+- Improve CLI error message for files by [@dasilvacontin].
+
+### Fixed
+
+- Fixed detecting usernames in email addresses by [@dasilvacontin].
+
 ## 0.5.0 (2015-09-08)
 
 ### Added
