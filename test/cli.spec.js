@@ -50,5 +50,20 @@ describe('CLI', function () {
       child.stdout.should.not.contain('Change Log') // from CHANGELOG.md
     })
   })
-})
 
+  it('should dress all files and directories recursively', function () {
+    return sauce('-p -r').then(function (child) {
+      child.stdout.should.contain('gh-sauce') // from README.md
+      child.stdout.should.contain('Change Log') // from CHANGELOG.md
+      child.stdout.should.contain('test') // from test/files/test.md
+    })
+  })
+
+  it('should dress only selected files and directories recursively', function () {
+    return sauce('-p -r README.md test').then(function (child) {
+      child.stdout.should.contain('gh-sauce') // from README.md
+      child.stdout.should.not.contain('Change Log') // from CHANGELOG.md
+      child.stdout.should.contain('test') // from test/files/test.md
+    })
+  })
+})

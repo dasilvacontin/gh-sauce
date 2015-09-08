@@ -18,6 +18,7 @@
   "dependencies": {
     "bluebird": "^2.9.34",
     "commander": "^2.8.1",
+    "fs-readdir-recursive": "^0.1.2",
     "lodash": "^3.9.3"
   },
   "devDependencies": {
