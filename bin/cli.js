@@ -79,12 +79,15 @@ _.forEach(files, function (file) {
     doneDressing('- [x] "' + file + '" was dressed with gh-sauce')
   }).catch(function (err) {
     switch (err.code) {
+
       case 'ENOENT':
         doneDressing('- [ ] "' + file + '" doesn\'t exist')
         break
+
       default:
-        doneDressing('- [ ] "' + file + '" error, code :' + err.code)
+        doneDressing('- [ ] "' + file + '" errored, code :' + err.code)
         break
+
     }
   })
 })
