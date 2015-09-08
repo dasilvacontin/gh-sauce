@@ -1,7 +1,7 @@
 {
   "name": "gh-sauce",
   "description": "Enhance your markdown gh-repo files.",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "homepage": "https://github.com/dasilvacontin/gh-sauce",
   "bugs": "https://github.com/dasilvacontin/gh-sauce/issues",
   "license": "MIT",

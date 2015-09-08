@@ -5,6 +5,21 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 The markdown links in this change log were generated using [`gh-sauce`](https://github.com/dasilvacontin/gh-sauce).
 
+## 0.5.0 (2015-09-08)
+
+### Added
+
+- Print option to CLI (output to stdout) by [@dasilvacontin].
+- Recursive option to CLI by [@formap].
+
+### Changed
+
+- Moved common test code to test/common.js by [@dasilvacontin].
+
+### Fixed
+
+- Case insensitive username ordering by [@formap].
+
 ## 0.4.0 (2015-08-30)
 
 ### Added
@@ -57,3 +72,4 @@ The markdown links in this change log were generated using [`gh-sauce`](https://
 [#4]: https://github.com/dasilvacontin/gh-sauce/issues/4
 
 [@dasilvacontin]: https://github.com/dasilvacontin
+[@formap]: https://github.com/formap
