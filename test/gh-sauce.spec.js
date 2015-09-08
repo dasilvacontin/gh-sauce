@@ -18,9 +18,12 @@ describe('gh-sauce', function () {
     })
 
     it('should enhance usernames', function () {
-      sauce.dress('fix bail not running after hooks by @dasilvacontin')
-      .should.equal([
+      sauce.dress([
+        'fix bail not running after hooks by @dasilvacontin',
+        'email: dasilvacontin@gmail.com'
+      ].join('\n')).should.equal([
         'fix bail not running after hooks by [@dasilvacontin]',
+        'email: dasilvacontin@gmail.com',
         '',
         '[@dasilvacontin]: https://github.com/dasilvacontin',
         ''
