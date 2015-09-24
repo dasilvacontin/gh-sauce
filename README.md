@@ -4,7 +4,6 @@
 [![Dependency Status][daviddm-url]][daviddm-image]
 [![Coverage Status][coveralls-image]][coveralls-url]
 [![NPM downloads per month][downloads-image]][downloads-url]
-[![Code Climate][codeclimate-image]][codeclimate-url]
 
 Enhance your GitHub repo's markdown files.
 
@@ -109,8 +108,6 @@ MIT © [David da Silva](http://dasilvacont.in)
 [daviddm-image]: https://david-dm.org/dasilvacontin/gh-sauce
 [coveralls-url]: https://coveralls.io/r/dasilvacontin/gh-sauce?branch=master
 [coveralls-image]: https://coveralls.io/repos/dasilvacontin/gh-sauce/badge.svg?branch=master
-[codeclimate-url]: https://codeclimate.com/github/dasilvacontin/gh-sauce
-[codeclimate-image]: https://codeclimate.com/github/dasilvacontin/gh-sauce/badges/gpa.svg
 
 [#442]: https://github.com/dasilvacontin/gh-sauce/issues/442
 [#459]: https://github.com/dasilvacontin/gh-sauce/issues/459
