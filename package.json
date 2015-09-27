@@ -1,20 +1,42 @@
 {
   "name": "gh-sauce",
-  "description": "Enhance your markdown gh-repo files.",
   "version": "0.5.1",
-  "homepage": "https://github.com/dasilvacontin/gh-sauce",
-  "bugs": "https://github.com/dasilvacontin/gh-sauce/issues",
+  "description": "Enhance your markdown gh-repo files.",
+  "author": "David da Silva <dasilvacontin@gmail.com>",
   "license": "MIT",
-  "main": "lib/gh-sauce.js",
-  "author": {
-    "name": "David da Silva Contín",
-    "email": "dasilvacontin@gmail.com"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/dasilvacontin/gh-sauce"
   },
-  "keywords": [],
+  "bugs": "https://github.com/dasilvacontin/gh-sauce/issues",
+  "bin": "bin/cli.js",
+  "scripts": {
+    "lint": "standard",
+    "test": "node test/index.js | tap-spec",
+    "test:watch": "gaze 'npm test' 'test/**/*.js' 'lib/**/*.js' 'index.js'",
+    "start": "npm run test:watch",
+    "istanbul": "istanbul cover test/index.js",
+
+    "pretest": "npm run lint",
+    "preistanbul": "npm run lint",
+    "prepublish": "npm run test"
+  },
+  "main": "lib/gh-sauce.js",
+  "files": [
+    "index.js",
+    "lib",
+    "LICENSE"
+  ],
+  "keywords": [
+    "gh-sauce",
+    "github",
+    "markdown",
+    "link",
+    "links",
+    "generate",
+    "annotate",
+    "auto"
+  ],
   "dependencies": {
     "bluebird": "^2.9.34",
     "commander": "^2.8.1",
@@ -22,23 +44,12 @@
     "lodash": "^3.9.3"
   },
   "devDependencies": {
-    "chai": "^3.0.0",
     "child-process-promise": "^1.1.0",
-    "coveralls": "^2.11.1",
-    "gulp": "^3.8.8",
-    "gulp-bump": "^0.1.11",
-    "gulp-istanbul": "^0.5.0",
-    "gulp-load-plugins": "^0.6.0",
-    "gulp-mocha": "^1.1.0",
-    "gulp-plumber": "^0.6.5",
-    "gulp-standard": "0.0.3",
-    "gulp-util": "^3.0.1"
-  },
-  "scripts": {
-    "coveralls": "gulp test && cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
-    "test": "gulp test"
-  },
-  "bin": {
-    "gh-sauce": "bin/cli.js"
+    "coveralls": "^2.11.2",
+    "istanbul": "^0.3.8",
+    "tape": "^4.0.1",
+    "tap-spec": "^4.0.2",
+    "gaze-cli": "^0.2.0",
+    "standard": "^4.5.0"
   }
 }

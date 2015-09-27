@@ -1,72 +1,71 @@
 'use strict'
 
-/* globals describe, beforeEach, it */
-
+var test = require('tape')
 var sauce = require('../')
 
-describe('gh-sauce', function () {
-  describe('#dress(text, config)', function () {
-    beforeEach(function () {
-      sauce.config.repo = 'https://github.com/mochajs/mocha'
-    })
+sauce.config.repo = 'https://github.com/mochajs/mocha'
 
-    it('should throw a TypeError if text is not a string', function () {
-      (function () {
-        sauce.dress(125)
-        sauce.dress({foo: 'bar'})
-      }).should.throw(TypeError)
-    })
+function longstr () {
+  return Array.prototype.join.call(arguments, '\n')
+}
 
-    it('should enhance usernames', function () {
-      sauce.dress([
-        'fix bail not running after hooks by @dasilvacontin',
-        'email: dasilvacontin@gmail.com'
-      ].join('\n')).should.equal([
-        'fix bail not running after hooks by [@dasilvacontin]',
-        'email: dasilvacontin@gmail.com',
-        '',
-        '[@dasilvacontin]: https://github.com/dasilvacontin',
-        ''
-      ].join('\n'))
-    })
+test('gh-sauce', function (t) {
+  t.test('validation', function (st) {
+    st.plan(1)
 
-    it('should list usernames alphabetically', function () {
-      sauce.dress('fix undefined lookup by @phillipj, @Formap and @dasilvacontin')
-      .should.equal([
-        'fix undefined lookup by [@phillipj], [@Formap] and [@dasilvacontin]',
-        '',
-        '[@dasilvacontin]: https://github.com/dasilvacontin',
-        '[@Formap]: https://github.com/Formap',
-        '[@phillipj]: https://github.com/phillipj',
-        ''
-      ].join('\n'))
-    })
+    st.throws(function () {
+      sauce.dress(125)
+      sauce.dress({foo: 'bar'})
+    }, TypeError, 'should throw a TypeError if text is not a string')
+  })
 
-    it('should enhance issues', function () {
-      sauce.dress('fixes #26')
-      .should.equal([
-        'fixes [#26]',
-        '',
-        '[#26]: https://github.com/mochajs/mocha/issues/26',
-        ''
-      ].join('\n'))
-    })
+  t.test('usernames', function (st) {
+    st.plan(2)
 
-    it('should list issues in ascending order', function () {
-      sauce.dress('fixes #26 and #27. fix lookup (#29)')
-      .should.equal([
-        'fixes [#26] and [#27]. fix lookup ([#29])',
-        '',
-        '[#26]: https://github.com/mochajs/mocha/issues/26',
-        '[#27]: https://github.com/mochajs/mocha/issues/27',
-        '[#29]: https://github.com/mochajs/mocha/issues/29',
-        ''
-      ].join('\n'))
-    })
+    st.equal(sauce.dress(longstr(
+      'fix bail not running after hooks by @dasilvacontin',
+      'email: dasilvacontin@gmail.com'
+      )), longstr(
+      'fix bail not running after hooks by [@dasilvacontin]',
+      'email: dasilvacontin@gmail.com',
+      '',
+      '[@dasilvacontin]: https://github.com/dasilvacontin',
+      ''
+    ), 'should enhance usernames')
 
-    it('should list issues first then usernames', function () {
-      sauce.dress('#27 and #26 were fixed by @phillipj and @dasilvacontin')
-      .should.equal([
+    st.equal(sauce.dress(
+      'fix undefined lookup by @phillipj, @Formap and ' + '@dasilvacontin'
+    ), longstr(
+      'fix undefined lookup by [@phillipj], [@Formap] and [@dasilvacontin]',
+      '',
+      '[@dasilvacontin]: https://github.com/dasilvacontin',
+      '[@Formap]: https://github.com/Formap',
+      '[@phillipj]: https://github.com/phillipj',
+      ''
+    ), 'should list usernames alphabetically')
+  })
+
+  t.test('issues', function (st) {
+    st.plan(3)
+
+    st.equal(sauce.dress('fixes #26'), longstr(
+      'fixes [#26]',
+      '',
+      '[#26]: https://github.com/mochajs/mocha/issues/26',
+      ''
+    ), 'should enhance issues')
+
+    st.equal(sauce.dress('fixes #26 and #27. fix lookup (#29)'), longstr(
+      'fixes [#26] and [#27]. fix lookup ([#29])',
+      '',
+      '[#26]: https://github.com/mochajs/mocha/issues/26',
+      '[#27]: https://github.com/mochajs/mocha/issues/27',
+      '[#29]: https://github.com/mochajs/mocha/issues/29',
+      ''
+    ), 'should list issues in ascending order')
+
+    st.equal(sauce.dress('#27 and #26 were fixed by @phillipj and @dasilvacontin'),
+      longstr(
         '[#27] and [#26] were fixed by [@phillipj] and [@dasilvacontin]',
         '',
         '[#26]: https://github.com/mochajs/mocha/issues/26',
@@ -75,133 +74,117 @@ describe('gh-sauce', function () {
         '[@dasilvacontin]: https://github.com/dasilvacontin',
         '[@phillipj]: https://github.com/phillipj',
         ''
-      ].join('\n'))
-    })
-
-    it('should only have two newlines between end of text and link summary',
-    function () {
-      var dressed = [
-        'fixes [#26]',
-        '',
-        '[#26]: https://github.com/mochajs/mocha/issues/26',
-        ''
-      ].join('\n')
-
-      sauce.dress('fixes #26\n').should.equal(dressed)
-      sauce.dress('fixes #26\n\n').should.equal(dressed)
-      sauce.dress('fixes #26\n\n\n').should.equal(dressed)
-      sauce.dress('fixes #26\t').should.equal(dressed)
-      sauce.dress('fixes #26\t\n \n\t').should.equal(dressed)
-    })
-
-    it('should merge with an existing summary', function () {
-      sauce.dress([
-        'fixes #27 by @dasilvacontin',
-        'fix thing [#26] by [@phillipj]',
-        '',
-        '[#26]: https://github.com/mochajs/mocha/issues/26',
-        '',
-        '[@phillipj]: https://github.com/phillipj',
-        ''
-      ].join('\n'))
-      .should.equal([
-        'fixes [#27] by [@dasilvacontin]',
-        'fix thing [#26] by [@phillipj]',
-        '',
-        '[#26]: https://github.com/mochajs/mocha/issues/26',
-        '[#27]: https://github.com/mochajs/mocha/issues/27',
-        '',
-        '[@dasilvacontin]: https://github.com/dasilvacontin',
-        '[@phillipj]: https://github.com/phillipj',
-        ''
-      ].join('\n'))
-    })
-
-    describe('config', function () {
-      it('should use `config.repo` for issue urls', function () {
-        var config = {
-          repo: 'https://github.com/dasilvacontin/gh-sauce'
-        }
-
-        sauce.dress('fixes #26', config)
-        .should.equal([
-          'fixes [#26]',
-          '',
-          '[#26]: https://github.com/dasilvacontin/gh-sauce/issues/26',
-          ''
-        ].join('\n'))
-      })
-
-      it('must be able to overwrite urls', function () {
-        var config = {
-          repo: 'https://github.com/dasilvacontin/gh-sauce'
-        }
-
-        sauce.dress([
-          'fixes [#27]',
-          '',
-          '[#27]: https://github.com/mochajs/mocha/issues/27',
-          ''
-        ].join('\n'), config)
-        .should.equal([
-          'fixes [#27]',
-          '',
-          '[#27]: https://github.com/dasilvacontin/gh-sauce/issues/27',
-          ''
-        ].join('\n'))
-      })
-
-      it('should throw a TypeError for invalid config for `repo`', function () {
-        (function () {
-          var config = {
-            repo: 56
-          }
-          sauce.dress('', config)
-        }).should.throw()
-      })
-
-      it('should use `config.safe` for conserving existing urls', function () {
-        var config = {
-          safe: true
-        }
-
-        sauce.dress([
-          'fixes #27 by @phillipj',
-          'fix thing [#26] by [@phillipj]',
-          '',
-          '[#26]: https://github.com/mochajs/mocha/issues/26',
-          '',
-          '[@phillipj]: https://twitter.com/phillipjohnsen',
-          ''
-        ].join('\n'), config)
-        .should.equal([
-          'fixes [#27] by [@phillipj]',
-          'fix thing [#26] by [@phillipj]',
-          '',
-          '[#26]: https://github.com/mochajs/mocha/issues/26',
-          '[#27]: https://github.com/mochajs/mocha/issues/27',
-          '',
-          '[@phillipj]: https://twitter.com/phillipjohnsen',
-          ''
-        ].join('\n'))
-      })
-
-      it('should throw an Error if couldn\'t figure out `repo`', function () {
-        process.chdir('test')
-        delete require.cache[require.resolve('../')]
-        sauce = require('../')
-
-        ;(function missingPackage () {
-          sauce.dress('w0l0l0')
-        }).should.throw()
-
-        process.chdir('..')
-        delete require.cache[require.resolve('../')]
-        sauce = require('../')
-      })
-    })
+      ), 'should list issues first then usernames')
   })
-  describe('#dressFile(path)', function () {
 
+  t.test('summary', function (st) {
+    st.plan(6)
+
+    var dressed = longstr(
+      'fixes [#26]',
+      '',
+      '[#26]: https://github.com/mochajs/mocha/issues/26',
+      ''
+    )
+
+    ;([
+      'fixes #26\n',
+      'fixes #26\n\n',
+      'fixes #26\n\n\n',
+      'fixes #26\t',
+      'fixes #26\t\n \n\t'
+    ]).forEach(function (str) {
+      st.equal(
+        sauce.dress(str),
+        dressed,
+        'should only have two newlines between end of text and link summary'
+      )
+    })
+
+    st.equal(sauce.dress(longstr(
+      'fixes #27 by @dasilvacontin',
+      'fix thing [#26] by [@phillipj]',
+      '',
+      '[#26]: https://github.com/mochajs/mocha/issues/26',
+      '',
+      '[@phillipj]: https://github.com/phillipj',
+      ''
+    )), longstr(
+      'fixes [#27] by [@dasilvacontin]',
+      'fix thing [#26] by [@phillipj]',
+      '',
+      '[#26]: https://github.com/mochajs/mocha/issues/26',
+      '[#27]: https://github.com/mochajs/mocha/issues/27',
+      '',
+      '[@dasilvacontin]: https://github.com/dasilvacontin',
+      '[@phillipj]: https://github.com/phillipj',
+      ''
+    ), 'should merge with an existing summary')
+  })
+
+  t.test('config', function (st) {
+    st.plan(5)
+
+    var config = {}
+    config.repo = 'https://github.com/dasilvacontin/gh-sauce'
+
+    st.equal(sauce.dress('fixes #26', config), longstr(
+      'fixes [#26]',
+      '',
+      '[#26]: https://github.com/dasilvacontin/gh-sauce/issues/26',
+      ''
+    ), 'should use `config.repo` for issue urls')
+
+    config.repo = 'https://github.com/dasilvacontin/gh-sauce'
+    st.equal(sauce.dress(longstr(
+      'fixes [#27]',
+      '',
+      '[#27]: https://github.com/mochajs/mocha/issues/27',
+      ''
+    ), config), longstr(
+      'fixes [#27]',
+      '',
+      '[#27]: https://github.com/dasilvacontin/gh-sauce/issues/27',
+      ''
+    ), 'must be able to overwrite urls')
+
+    st.throws(function () {
+      config.repo = 56
+      sauce.dress('', config)
+    }, 'should throw a TypeError for invalid config for `repo`')
+
+    var config = { safe: true }
+    st.equal(sauce.dress(longstr(
+      'fixes #27 by @phillipj',
+      'fix thing [#26] by [@phillipj]',
+      '',
+      '[#26]: https://github.com/mochajs/mocha/issues/26',
+      '',
+      '[@phillipj]: https://twitter.com/phillipjohnsen',
+      ''
+    ), config), longstr(
+      'fixes [#27] by [@phillipj]',
+      'fix thing [#26] by [@phillipj]',
+      '',
+      '[#26]: https://github.com/mochajs/mocha/issues/26',
+      '[#27]: https://github.com/mochajs/mocha/issues/27',
+      '',
+      '[@phillipj]: https://twitter.com/phillipjohnsen',
+      ''
+    ), 'should use `config.safe` for conserving existing urls')
+
+    st.test('should throw an Error if couldn\'t figure out `repo`', function (st) {
+      process.chdir('test')
+      delete require.cache[require.resolve('../')]
+      sauce = require('../')
+
+      st.throws(function missingPackage () {
+        sauce.dress('w0l0l0')
+      })
+
+      process.chdir('..')
+      delete require.cache[require.resolve('../')]
+      sauce = require('../')
+    })
   })
 })
