@@ -1,4 +1,5 @@
-# gh-sauce
+# gh-sauce <img src="https://i.gyazo.com/bcd1cedd5779493c02a6dc95db8c3735.png" alt="octocat holding shaved ice" height="300">
+
 [![NPM version][npm-image]][npm-url]
 [![Build Status][travis-image]][travis-url]
 [![Dependency Status][daviddm-url]][daviddm-image]
@@ -96,7 +97,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 MIT © [David da Silva](http://dasilvacont.in)
 
-
+"Octocat with shaved ice" drawing by [Núria Balaguer](https://www.facebook.com/nixiescream)
 
 [npm-url]: https://npmjs.org/package/gh-sauce
 [npm-image]: https://badge.fury.io/js/gh-sauce.svg
