@@ -153,7 +153,7 @@ test('gh-sauce', function (t) {
       sauce.dress('', config)
     }, 'should throw a TypeError for invalid config for `repo`')
 
-    var config = { safe: true }
+    config = { safe: true }
     st.equal(sauce.dress(longstr(
       'fixes #27 by @phillipj',
       'fix thing [#26] by [@phillipj]',
@@ -174,6 +174,7 @@ test('gh-sauce', function (t) {
     ), 'should use `config.safe` for conserving existing urls')
 
     st.test('should throw an Error if couldn\'t figure out `repo`', function (st) {
+      st.plan(1)
       process.chdir('test')
       delete require.cache[require.resolve('../')]
       sauce = require('../')
