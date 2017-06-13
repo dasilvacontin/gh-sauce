@@ -85,7 +85,7 @@ _.forEach(files, function (file) {
         break
 
       default:
-        doneDressing('- [ ] "' + file + '" errored, code :' + err.code)
+        doneDressing('- [ ] "' + file + '" errored, code: ' + (err.code || '<unknown>') + '\n' + err)
         break
 
     }
