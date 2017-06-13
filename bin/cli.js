@@ -5,6 +5,7 @@ var Promise = require('bluebird')
 var program = require('commander')
 var fs = Promise.promisifyAll(require('fs'))
 var rfs = require('fs-readdir-recursive')
+var spawnSync = require('child_process').spawnSync
 
 var pkg = require('../package.json')
 var sauce = require('../lib/gh-sauce.js')
@@ -55,11 +56,26 @@ if (program.safe) {
   config.safe = program.safe
 }
 if (program.repo) {
+  if (!program.repo.match(/^https:\/\/github\.com/)) {
+    program.repo = 'https://github.com/' + program.repo
+  }
   config.repo = program.repo
+} else {
+  try {
+    var repoURL = String(spawnSync('git', ['remote', 'get-url', 'origin']).stdout).trim()
+    if (repoURL.match(/^https:\/\/github\.com/)) {
+      config.repo = repoURL.replace(/\.git$/, '')
+    } else {
+      throw new Error() // go to catch clause
+    }
+  } catch (e) {
+    console.log('WARNING: failed to determine GitHub repo URL')
+  }
 }
 
 var print = program.print
 
+if (!print && !program.repo) console.log('# Guessing repo name: ' + config.repo.replace(/^https:\/\/github\.com\//, '') + '\n> Use `--repo` to customize')
 if (!print) console.log('# Dressing ' + files.join(', ') + ' with some gh-sauce...\n')
 
 function doneDressing (msg) {
