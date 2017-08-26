@@ -54,19 +54,44 @@ var config = {}
 if (program.safe) {
   config.safe = program.safe
 }
+
+var print = config.print = !program.print
+
 if (program.repo) {
   config.repo = program.repo
+} else {
+  var repoGuess
+
+  try {
+    var repoURL = String(spawnSync('git', ['remote', 'get-url', 'origin']).stdout).trim()
+    if (/^https:\/\/github\.com/.test(repoURL)) {
+      // HTTPS
+      config.repo = repoURL.replace(/\.git$/, '')
+    } else if (/^git@github\.com:(.+)\.git$/.test(repoURL)) {
+      config.repo = repoURL.match(/^git@github\.com:(.+)\.git$/)[1]
+    }
+    repoGuess = 'the git `origin` remote'
+  } catch (err) {}
+
+  try {
+    var cwdPkg = require(process.cwd() + '/package.json')
+    config.repo = cwdPkg.homepage
+    repoGuess = 'package.json'
+  } catch (err) {}
+
+  if (print && config.repo) {
+    console.log('# Guessing repo name: ' + config.repo.replace(/^https:\/\/github\.com\//, ''))
+    if (repoGuess) console.log('> Guessed from ' + repoGuess)
+    console.log('> Use `--repo` to customize')
+  }
 }
-
-var print = program.print
-
-if (!print) console.log('# Dressing ' + files.join(', ') + ' with some gh-sauce...\n')
+if (print) console.log('# Dressing ' + files.join(', ') + ' with some gh-sauce...\n')
 
 function doneDressing (msg) {
-  if (!print) console.log(msg)
+  if (print) console.log(msg)
   --files.length
   if (files.length === 0) {
-    if (!print) console.log('\nDone! 🍧')
+    if (print) console.log('\nDone! 🍧')
   }
 }
 
@@ -85,7 +110,7 @@ _.forEach(files, function (file) {
         break
 
       default:
-        doneDressing('- [ ] "' + file + '" errored, code :' + err.code)
+        doneDressing('- [ ] "' + file + '" errored, code: ' + (err.code || '<unknown>') + '\n' + err)
         break
 
     }
