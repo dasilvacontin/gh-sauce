@@ -54,9 +54,8 @@ var config = {}
 if (program.safe) {
   config.safe = program.safe
 }
-config.print = !program.print
 
-var print = program.print
+var print = config.print = !program.print
 
 if (program.repo) {
   config.repo = program.repo
@@ -80,19 +79,19 @@ if (program.repo) {
     repoGuess = 'package.json'
   } catch (err) {}
 
-  if (!print && config.repo) {
+  if (print && config.repo) {
     console.log('# Guessing repo name: ' + config.repo.replace(/^https:\/\/github\.com\//, ''))
     if (repoGuess) console.log('> Guessed from ' + repoGuess)
     console.log('> Use `--repo` to customize')
   }
 }
-if (!print) console.log('# Dressing ' + files.join(', ') + ' with some gh-sauce...\n')
+if (print) console.log('# Dressing ' + files.join(', ') + ' with some gh-sauce...\n')
 
 function doneDressing (msg) {
-  if (!print) console.log(msg)
+  if (print) console.log(msg)
   --files.length
   if (files.length === 0) {
-    if (!print) console.log('\nDone! 🍧')
+    if (print) console.log('\nDone! 🍧')
   }
 }
 
