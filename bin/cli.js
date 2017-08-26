@@ -54,14 +54,38 @@ var config = {}
 if (program.safe) {
   config.safe = program.safe
 }
-if (program.repo) {
-  config.repo = program.repo
-}
-
 config.print = !program.print
 
 var print = program.print
 
+if (program.repo) {
+  config.repo = program.repo
+} else {
+  var repoGuess
+
+  try {
+    var repoURL = String(spawnSync('git', ['remote', 'get-url', 'origin']).stdout).trim()
+    if (/^https:\/\/github\.com/.test(repoURL)) {
+      // HTTPS
+      config.repo = repoURL.replace(/\.git$/, '')
+    } else if (/^git@github\.com:(.+)\.git$/.test(repoURL)) {
+      config.repo = repoURL.match(/^git@github\.com:(.+)\.git$/)[1]
+    }
+    repoGuess = 'the git `origin` remote'
+  } catch (err) {}
+
+  try {
+    var cwdPkg = require(process.cwd() + '/package.json')
+    config.repo = cwdPkg.homepage
+    repoGuess = 'package.json'
+  } catch (err) {}
+
+  if (!print && config.repo) {
+    console.log('# Guessing repo name: ' + config.repo.replace(/^https:\/\/github\.com\//, ''))
+    if (repoGuess) console.log('> Guessed from ' + repoGuess)
+    console.log('> Use `--repo` to customize')
+  }
+}
 if (!print) console.log('# Dressing ' + files.join(', ') + ' with some gh-sauce...\n')
 
 function doneDressing (msg) {
